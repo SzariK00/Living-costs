@@ -1,0 +1,19 @@
+{
+  "name": "projekt_koncowy",
+  "version": "1.0.0",
+  "description": "zaleznosci_do_projektu_koncowego",
+  "author": "Adrian Jelonek",
+  "license": "MIT",
+  "devDependencies": {
+    "browser-sync": "*",
+    "gulp": "*",
+    "gulp-autoprefixer": "*",
+    "gulp-plumber": "*",
+    "gulp-sass": "*",
+    "gulp-util": "*"
+  },
+  "dependencies": {
+    "gulp-notify": "*",
+    "gulp-sourcemaps": "*"
+  }
+}
