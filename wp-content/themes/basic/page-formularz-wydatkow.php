@@ -6,6 +6,7 @@
  */
 get_header(); ?>
 
+<!--First expenses form.-->
 <form action="<?php echo admin_url('admin-post.php'); ?>" method="post"> //
     <label for="previous_expenses">Wybierz poprzedni rodzaj wydatku:</label>
     <select id="previous_expenses" name="user_previous_expenses">
@@ -24,6 +25,7 @@ get_header(); ?>
     <div>
         <label for="expense_date">Data wydatku:</label>
         <input type="date" id="expense_date" name="user_expense_date">
+        <!--Need to operate with admin-post.php-->
         <input type="hidden" name="action" value="add_expenses">
     </div>
     <div class="button">

@@ -11,6 +11,7 @@ get_header(); ?>
 
     <?php if ( $q->have_posts() ) : while ( $q->have_posts() ) : $q->the_post(); ?>
         <!-- post -->
+        <!--Redirect to formularz-wydatkow page-->
         <?php wp_redirect(get_permalink()); ?>
     <?php endwhile; ?>
         <!-- post navigation -->
@@ -18,6 +19,7 @@ get_header(); ?>
         <!-- no posts found -->
     <?php endif; ?>
 <?php else: ?>
+    <!--TODO Dodać komunikat o konieczności dokonania rejestracji.-->
     <?php wp_register(); ?>
 <?php endif; ?>
 
