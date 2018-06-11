@@ -5,7 +5,7 @@
  * Time: 11:30
  */
 
-/*Here you have simple CRUD class*/
+/*Here you have simple CRUD class which process expenses management*/
 
 class Expenses
 {
@@ -46,6 +46,23 @@ class Expenses
             }
         }
         return false;
+    }
+
+    public static function loadAllExpensesNames(PDO $conn, $userId)
+    {
+        $expensesArr = [];
+        $sql = "SELECT expense_type FROM expenses WHERE user_id = $userId";
+        $result = $conn->query($sql);
+        if ($result !== false && $result->rowCount() != 0) {
+            foreach ($result as $expenseNameArr) {
+                foreach ($expenseNameArr as $key => $expenseName) {
+                    if ($key == 'expense_name') {
+                        $expensesArr[] = $expenseName;
+                    }
+                }
+            }
+        }
+        return $expensesArr;
     }
 
     /**
