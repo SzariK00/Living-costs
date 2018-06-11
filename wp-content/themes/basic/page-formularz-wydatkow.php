@@ -4,15 +4,26 @@
  * Date: 07.06.18
  * Time: 18:24
  */
-get_header(); ?>
+get_header();
+?>
 
 <!--First expenses form.-->
 <form action="<?php echo admin_url('admin-post.php'); ?>" method="post">
     <label for="previous_expenses">Wybierz poprzedni rodzaj wydatku:</label>
     <select id="previous_expenses" name="user_previous_expenses">
-        <option value="first">Wydatek 1</option>
-        <option value="second">Wydatek 2</option>
-        <option value="third">Wydatek 3</option>
+        <option value="first" selected></option>
+        <?php
+        $userId = get_current_user_id();
+        $dsn = "mysql:host=localhost;dbname=projekt";
+        $dataBaseConn = new PDO($dsn, DB_USER, DB_PASSWORD);
+
+        /*Loading all expenses names from current user*/
+        $expensesArr = Expenses::loadAllExpensesNames($dataBaseConn, $userId);
+
+        foreach ($expensesArr as $key => $expenseOption) {
+            echo "<option>$expenseOption</option>";
+        }
+        ?>
     </select>
     <div>
         <label for="new_expense">Nowy rodzaj wydatku:</label>
