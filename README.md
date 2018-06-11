@@ -1,7 +1,7 @@
-##Application for managing personal budget (costs of everyday life).
+#Application for managing personal budget (costs of everyday life).
 >Autor: Adrian Jelonek |  E-mail: ajelonek(at)gmail.com
 
-### Project is still under construction
+## Project is still under construction
 It will work like this:
 1. First of all you will have to register,
 2. Then you will be able to add your recent expense (e.g. groceries receipt) via simple form,
