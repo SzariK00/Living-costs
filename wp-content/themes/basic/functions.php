@@ -6,7 +6,7 @@
  */
 require 'class/Expenses.php';
 
-/*First expenses form action.*/
+/*Expenses form action.*/
 add_action('admin_post_add_expenses', 'process_expenses_from_user');
 
 function process_expenses_from_user()
@@ -20,6 +20,7 @@ function process_expenses_from_user()
     $dsn = "mysql:host=localhost;dbname=projekt";
     $dataBaseConn = new PDO($dsn, DB_USER, DB_PASSWORD);
 
-    $addObject = new Expenses($currentUserId, $currentUserName, $userNewExpense, $userExpenseValue, $userExpenseDate);
-    $addObject->saveToDB($dataBaseConn);
+    /*Adding expenses to database*/
+    $addObjectWithExpense = new Expenses($currentUserId, $currentUserName, $userNewExpense, $userExpenseValue, $userExpenseDate);
+    $addObjectWithExpense->saveToDB($dataBaseConn);
 }
