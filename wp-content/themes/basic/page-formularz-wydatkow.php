@@ -7,7 +7,7 @@
 get_header(); ?>
 
 <!--First expenses form.-->
-<form action="<?php echo admin_url('admin-post.php'); ?>" method="post"> //
+<form action="<?php echo admin_url('admin-post.php'); ?>" method="post">
     <label for="previous_expenses">Wybierz poprzedni rodzaj wydatku:</label>
     <select id="previous_expenses" name="user_previous_expenses">
         <option value="first">Wydatek 1</option>
