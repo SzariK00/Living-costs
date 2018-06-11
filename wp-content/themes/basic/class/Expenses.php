@@ -25,7 +25,7 @@ class Expenses
         $this->expenseValue = $userExpenseValue;
         $this->expenseDate = $userExpenseDate;
     }
-
+    /*Adding expense to data base.*/
     public function saveToDB(PDO $conn)
     {
         if ($this->id == -1) {
@@ -47,7 +47,7 @@ class Expenses
         }
         return false;
     }
-
+    /*Loading expense name from db.*/
     public static function loadAllExpensesNames(PDO $conn, $userId)
     {
         $expensesArr = [];
