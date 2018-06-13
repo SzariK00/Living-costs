@@ -19,8 +19,9 @@ get_header(); ?>
         <!-- no posts found -->
     <?php endif; ?>
 <?php else: ?>
-    <!--TODO Dodać komunikat o konieczności dokonania rejestracji.-->
+    <h1>Aby korzystać z aplikacji musisz się zarejestrować.</h1>
     <?php wp_register(); ?>
+    <?php wp_login_form(); ?>
 <?php endif; ?>
 
 <?php get_footer(); ?>
