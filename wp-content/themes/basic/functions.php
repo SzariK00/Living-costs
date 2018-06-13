@@ -7,9 +7,9 @@
 require 'class/Expenses.php';
 
 /*Expenses form action.*/
-add_action('admin_post_add_expenses', 'process_expenses_from_user');
+add_action('admin_post_add_expenses', 'add_expenses_from_user');
 
-function process_expenses_from_user()
+function add_expenses_from_user()
 {
     $currentUserId = get_current_user_id();
     $currentUserName = get_current_user();
@@ -23,4 +23,7 @@ function process_expenses_from_user()
     /*Adding expenses to database*/
     $addObjectWithExpense = new Expenses($currentUserId, $currentUserName, $userNewExpense, $userExpenseValue, $userExpenseDate);
     $addObjectWithExpense->saveToDB($dataBaseConn);
+
+    $showExpensesPage = get_page_by_title('zestawienie wydatkow');
+    wp_redirect(get_permalink($showExpensesPage->ID));
 }
