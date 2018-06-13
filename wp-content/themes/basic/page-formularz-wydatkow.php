@@ -5,6 +5,7 @@
  * Time: 18:24
  */
 get_header();
+echo get_page_by_title('zestawienie-wydatkow');
 ?>
 
 <!--First expenses form.-->
@@ -18,10 +19,10 @@ get_header();
         $dataBaseConn = new PDO($dsn, DB_USER, DB_PASSWORD);
 
         /*Loading all expenses names from current user*/
-        $expensesArr = Expenses::loadAllExpensesNames($dataBaseConn, $userId);
+        $expensesNamesArr = Expenses::loadAllExpensesNames($dataBaseConn, $userId);
 
-        foreach ($expensesArr as $key => $expenseOption) {
-            echo "<option>$expenseOption</option>";
+        foreach ($expensesNamesArr as $key => $expenseName) {
+            echo "<option>$expenseName</option>";
         }
         ?>
     </select>
@@ -31,7 +32,7 @@ get_header();
     </div>
     <div>
         <label for="expense_value">Wartość wydatku:</label>
-        <input type="text" id="expense_value" name="user_expense_value">
+        <input type="number" step="0.01" id="expense_value" name="user_expense_value">
     </div>
     <div>
         <label for="expense_date">Data wydatku:</label>
