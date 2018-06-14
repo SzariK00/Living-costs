@@ -25,6 +25,7 @@ class Expenses
         $this->expenseValue = $userExpenseValue;
         $this->expenseDate = $userExpenseDate;
     }
+
     /*Adding expense to data base.*/
     public function saveToDB(PDO $conn)
     {
@@ -34,12 +35,12 @@ class Expenses
                           VALUES (:user_id, :user_name, :expense_type, :expense_value, :expense_date)');
             $result = $stmt->execute
             ([
-                    'user_id' => $this->userId,
-                    'user_name' => $this->userName,
-                    'expense_type' => $this->expenseType,
-                    'expense_value' => $this->expenseValue,
-                    'expense_date' => $this->expenseDate
-                ]);
+                'user_id' => $this->userId,
+                'user_name' => $this->userName,
+                'expense_type' => $this->expenseType,
+                'expense_value' => $this->expenseValue,
+                'expense_date' => $this->expenseDate
+            ]);
             if ($result !== false) {
                 $this->id = $conn->lastInsertId();
                 return true;
@@ -47,7 +48,8 @@ class Expenses
         }
         return false;
     }
-    /*Loading expense name from db.*/
+
+    /*Loading expenses names from db.*/
     public static function loadAllExpensesNames(PDO $conn, $userId)
     {
         $expensesArr = [];
@@ -63,6 +65,83 @@ class Expenses
             }
         }
         return $expensesArr;
+    }
+
+    /*Loading expenses from db and filtering them.*/
+    public static function loadAllExpenses(PDO $conn, $userId, $expenseName, $valueMin, $valueMax, $startDate, $endDate)
+    {
+        $valueMinHelper = $valueMin;
+        $valueMaxHelper = $valueMax;
+        $startDateHelper = $startDate;
+        $endDateHelper = $endDate;
+
+        if ($valueMin == '') {
+            $minValFromDb = "SELECT MIN(expense_value) FROM expenses WHERE user_id = $userId";
+            $minValResult = $conn->query($minValFromDb);
+            $minValArr = $minValResult->fetchAll();
+            $valueMinHelper = $minValArr[0][0];
+        }
+
+        if ($valueMax == '') {
+            $maxValFromDb = "SELECT MAX(expense_value) FROM expenses WHERE user_id = $userId";
+            $maxValResult = $conn->query($maxValFromDb);
+            $maxValArr = $maxValResult->fetchAll();
+            $valueMaxHelper = $maxValArr[0][0];
+        }
+
+        if ($startDate == '') {
+            $startDateFromDb = "SELECT MIN(expense_date) FROM expenses WHERE user_id = $userId";
+            $startDateResult = $conn->query($startDateFromDb);
+            $startDateArr = $startDateResult->fetchAll();
+            $startDateHelper = $startDateArr[0][0];
+        }
+
+        if ($endDate == '') {
+            $endDateFromDb = "SELECT MAX(expense_date) FROM expenses WHERE user_id = $userId";
+            $endDateResult = $conn->query($endDateFromDb);
+            $endDateArr = $endDateResult->fetchAll();
+            $endDateHelper = $endDateArr[0][0];
+        }
+
+        if ($expenseName == 'first') {
+
+            $stmt = $conn->prepare("SELECT * FROM expenses WHERE 
+                                      user_id = :userId AND 
+                                      expense_value BETWEEN :valueMin AND :valueMax AND 
+                                      expense_date BETWEEN :startDate AND :endDate");
+            $stmt->execute
+            ([
+                'userId' => $userId,
+                'valueMin' => $valueMinHelper,
+                'valueMax' => $valueMaxHelper,
+                'startDate' => $startDateHelper,
+                'endDate' => $endDateHelper
+            ]);
+
+            $result = $stmt->fetchAll();
+
+        } else {
+
+            $stmt = $conn->prepare("SELECT * FROM expenses WHERE 
+                                      expense_type = :expenseName AND 
+                                      user_id = :userId AND 
+                                      expense_value BETWEEN :valueMin AND :valueMax AND 
+                                      expense_date BETWEEN :startDate AND :endDate");
+            $stmt->execute
+            ([
+                'expenseName' => $expenseName,
+                'userId' => $userId,
+                'valueMin' => $valueMinHelper,
+                'valueMax' => $valueMaxHelper,
+                'startDate' => $startDateHelper,
+                'endDate' => $endDateHelper
+            ]);
+
+            $result = $stmt->fetchAll();
+
+        }
+
+        return $result;
     }
 
     /**
