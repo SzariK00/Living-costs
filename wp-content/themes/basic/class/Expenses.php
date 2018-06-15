@@ -5,7 +5,7 @@
  * Time: 11:30
  */
 
-/*Here you have simple CRUD class which process expenses management*/
+/*Simple CRUD class which process expenses management*/
 
 class Expenses
 {
@@ -16,14 +16,14 @@ class Expenses
     private $expenseValue;
     private $expenseDate;
 
-    public function __construct($currentUserId, $currentUserName, $userNewExpense, $userExpenseValue, $userExpenseDate)
+    public function __construct()
     {
         $this->id = -1;
-        $this->userId = $currentUserId;
-        $this->userName = $currentUserName;
-        $this->expenseType = $userNewExpense;
-        $this->expenseValue = $userExpenseValue;
-        $this->expenseDate = $userExpenseDate;
+        $this->userId = 0;
+        $this->userName = '';
+        $this->expenseType = '';
+        $this->expenseValue = 0;
+        $this->expenseDate = '';
     }
 
     /*Adding expense to data base.*/
@@ -49,7 +49,7 @@ class Expenses
         return false;
     }
 
-    /*Loading expenses names from db.*/
+    /*Loading expenses names from db*/
     public static function loadAllExpensesNames(PDO $conn, $userId)
     {
         $expensesArr = [];
@@ -67,7 +67,7 @@ class Expenses
         return $expensesArr;
     }
 
-    /*Loading expenses from db and filtering them.*/
+    /*Loading expenses from db and filtering them*/
     public static function loadAllExpenses(PDO $conn, $userId, $expenseName, $valueMin, $valueMax, $startDate, $endDate)
     {
         $valueMinHelper = $valueMin;
@@ -103,7 +103,7 @@ class Expenses
             $endDateHelper = $endDateArr[0][0];
         }
 
-        if ($expenseName == 'first') {
+        if (empty($expenseName)) {
 
             $stmt = $conn->prepare("SELECT * FROM expenses WHERE 
                                       user_id = :userId AND 
@@ -140,7 +140,6 @@ class Expenses
             $result = $stmt->fetchAll();
 
         }
-
         return $result;
     }
 
@@ -150,6 +149,7 @@ class Expenses
     public function setUserId($userId)
     {
         $this->userId = $userId;
+        return $this;
     }
 
     /**
@@ -158,6 +158,7 @@ class Expenses
     public function setUserName($userName)
     {
         $this->userName = $userName;
+        return $this;
     }
 
     /**
@@ -166,14 +167,16 @@ class Expenses
     public function setExpenseType($expenseType)
     {
         $this->expenseType = $expenseType;
+        return $this;
     }
 
     /**
      * @param mixed $expenseValue
      */
-    public function setExpenseValue(float $expenseValue)
+    public function setExpenseValue($expenseValue)
     {
         $this->expenseValue = $expenseValue;
+        return $this;
     }
 
     /**
@@ -182,6 +185,7 @@ class Expenses
     public function setExpenseDate($expenseDate)
     {
         $this->expenseDate = $expenseDate;
+        return $this;
     }
 
     /**
