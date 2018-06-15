@@ -9,16 +9,18 @@ get_header();
 
 <h1>Zestawienie dotychczasowych wydatków</h1>
 <h2>Dodaj filtry:</h2>
+
+<!--Filtering form starts here-->
 <form method="get">
     <label for="previous_expenses">Rodzaj wydatku:</label>
     <select id="previous_expenses" name="user_previous_expenses">
-        <option value="first" selected></option>
+        <option value="" selected></option>
         <?php
         $userId = get_current_user_id();
         $dsn = "mysql:host=localhost;dbname=projekt";
         $dataBaseConn = new PDO($dsn, DB_USER, DB_PASSWORD);
 
-        /*Loading all expenses names from current user*/
+        /*Loading all expenses names from a current user*/
         $expensesNamesArr = Expenses::loadAllExpensesNames($dataBaseConn, $userId);
 
         foreach ($expensesNamesArr as $key => $expenseName) {
@@ -41,17 +43,17 @@ get_header();
     <div>
         <label for="expense_date_end">Końcowa data wydatku:</label>
         <input type="date" id="expense_date_end" name="user_expense_date_end">
-        <!--Need to operate with admin-post.php-->
+        <!--Need hidden to operate with admin-post.php-->
         <input type="hidden" name="action" value="show_filtered_expenses">
     </div>
     <div class="button">
-        <button type="submit">Przefiltruj swoje wydatki</button>
+        <button type="submit" autofocus>Przefiltruj swoje wydatki</button>
     </div>
 </form>
 
 <?php
-/*TODO: Może być za duży URL! Trzeba zabezpieczyć długość typu wydatków*/
 
+/*Saving user filters*/
 $userPreviousExpense = $_GET['user_previous_expenses'];
 $userExpenseValueMin = $_GET['user_expense_value_min'];
 $userExpenseValueMax = $_GET['user_expense_value_max'];
@@ -60,6 +62,8 @@ $userExpenseEndDate = $_GET['user_expense_date_end'];
 
 $selectedExpensesArr = Expenses::loadAllExpenses($dataBaseConn, $userId, $userPreviousExpense, $userExpenseValueMin, $userExpenseValueMax, $userExpenseStartDate, $userExpenseEndDate);
 ?>
+
+<!--Printing table with expenses-->
 <table>
     <tr>
         <th>Nazwa użytkownika</th>
@@ -67,15 +71,15 @@ $selectedExpensesArr = Expenses::loadAllExpenses($dataBaseConn, $userId, $userPr
         <th>Wartość wydatku</th>
         <th>Data wydatku</th>
     </tr>
-<?php  foreach ($selectedExpensesArr as $expenseEntry) {
-    echo '<tr>';
-    echo '<td>' . $expenseEntry['user_name'] . '</td>';
-    echo '<td>' . $expenseEntry['expense_type'] . '</td>';
-    echo '<td>' . $expenseEntry['expense_value'] . '</td>';
-    echo '<td>' . $expenseEntry['expense_date'] . '</td>';
-    echo '</tr>';
-}
-?>
+    <?php  foreach ($selectedExpensesArr as $expenseEntry) {
+        echo '<tr>';
+        echo '<td>' . $expenseEntry['user_name'] . '</td>';
+        echo '<td>' . $expenseEntry['expense_type'] . '</td>';
+        echo '<td>' . $expenseEntry['expense_value'] . '</td>';
+        echo '<td>' . $expenseEntry['expense_date'] . '</td>';
+        echo '</tr>';
+    }
+    ?>
 </table>
-<?php get_footer() ?>
 
+<?php get_footer() ?>
