@@ -143,6 +143,17 @@ class Expenses
         return $result;
     }
 
+    /*Deleting expenses from db*/
+    public static function deleteExpenseFromExpensesById(PDO $conn, $expenseId)
+    {
+        $stmt = $conn->prepare('DELETE FROM expenses WHERE id=:id');
+        $result = $stmt->execute(['id' => $expenseId]);
+        if (!$result) {
+            return false;
+        }
+        return true;
+    }
+
     /**
      * @param mixed $userId
      */
