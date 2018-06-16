@@ -4,13 +4,21 @@
  * Date: 07.06.18
  * Time: 20:21
  */
+
+/*What is needed*/
 require 'class/Expenses.php';
+const DSN = 'mysql:host=localhost;dbname=projekt';
 
-/*Processing expenses form*/
-add_action('admin_post_add_expenses', 'add_expenses_from_user');
+/*Setting connection to database*/
+$dataBaseConn = new PDO(DSN, DB_USER, DB_PASSWORD);
 
-function add_expenses_from_user()
+/*Processing add expenses form*/
+add_action('admin_post_add_expenses', 'add_expenses_to_db');
+
+function add_expenses_to_db()
 {
+    global $dataBaseConn;
+
     /*Loading data from form*/
     if (isset($_POST['submit'])) {
         $currentUserId = get_current_user_id();
@@ -37,13 +45,9 @@ function add_expenses_from_user()
             header("Location: $linkToExpensesForm" . "?expense=expense_value_too_high");
         } elseif (!preg_match("/^[0-9-.,]*$/", $userExpenseValue)) {
             header("Location: $linkToExpensesForm" . "?expense=wrong_expense_value");
-        } elseif (empty($userExpenseDate)){
+        } elseif (empty($userExpenseDate)) {
             header("Location: $linkToExpensesForm" . "?expense=expense_date_empty");
         } else {
-
-            /*Setting connection to database*/
-            $dsn = "mysql:host=localhost;dbname=projekt";
-            $dataBaseConn = new PDO($dsn, DB_USER, DB_PASSWORD);
 
             /*Adding expenses to database*/
             $addObjectWithExpense = new Expenses();
@@ -54,5 +58,24 @@ function add_expenses_from_user()
             $showExpensesPage = get_page_by_title('zestawienie wydatkow');
             wp_redirect(get_permalink($showExpensesPage->ID));
         }
+    }
+}
+
+/*Processing delete expenses form*/
+add_action('admin_post_delete_expenses', 'delete_expenses_from_db');
+
+function delete_expenses_from_db()
+{
+    if (isset($_POST['no'])) {
+        /*Redirecting to expenses dashboard*/
+        $showExpensesPage = get_page_by_title('zestawienie wydatkow');
+        wp_redirect(get_permalink($showExpensesPage->ID));
+    } elseif (isset($_POST['yes'])) {
+        global $dataBaseConn;
+        $expenseToDelById = $_POST['expense_id_to_delete_from_url'];
+        Expenses::deleteExpenseFromExpensesById($dataBaseConn, $expenseToDelById);
+        /*Redirecting to expenses dashboard*/
+        $showExpensesPage = get_page_by_title('zestawienie wydatkow');
+        wp_redirect(get_permalink($showExpensesPage->ID));
     }
 }
