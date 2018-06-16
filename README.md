@@ -1,16 +1,30 @@
-#Application for managing personal budget (costs of everyday life).
+# Application for managing personal budget (costs of everyday life).
 >Autor: Adrian Jelonek |  E-mail: ajelonek(at)gmail.com
 
 ## Project is still under construction
-It will work like this:
+### The whole idea:
 1. First of all you will have to register,
 2. Then you will be able to add your recent expense (e.g. groceries receipt) via simple form,
 3. Of course you will be able to add expenses on everyday basis,
-5. Your expenses will be stored in application database (MySQL),
-6. Application will summarize your expenses, helping you to indicate expenses types which should be reduced in future.
+4. Your expenses will be stored in a application database,
+5. Application will summarize your expenses, helping you to indicate expenses types which should be changed in future,
+6. Chart based dashboard will help you embrace costs of everyday life.
 
-Project is powered by WordPress + **OOP mechanics based on Active Directory pattern.**
+### Current technologies behind:
+Project is powered by WordPress. WP is mainly used for user registration process. No default themes, plugins or any other external code injections are used in this project.
+
+PHP OOP is based on simplified Active Directory pattern.
+
+You can search for code samples in: wp-content/themes/Basic
+- Class directory - simple CRUD,
+- functions.php file - operations on forms,
+- page-formularz-wydatkow.php file - we add expenses here,
+- page-zestawienie-wydatkow.php file - we search for expenses here.
 
 
+### Technologies to be used ASAP:
+CSS based on SASS + GULP - fully styled Basic theme (wp-content/themes/Basic),
+
+CanvasJS for dashboard creation.
 
 
