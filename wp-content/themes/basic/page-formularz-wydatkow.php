@@ -8,15 +8,14 @@ get_header(); ?>
 
 <h1>Wprowadź wydatki do bazy danych</h1>
 
-<!--Expenses form starts here.-->
+<!--Add expenses form starts here-->
 <form action="<?php echo admin_url('admin-post.php'); ?>" method="post">
     <label for="previous_expenses">Wybierz poprzedni rodzaj wydatku:</label>
     <select id="previous_expenses" name="user_previous_expenses">
         <option value="" selected></option>
         <?php
         $userId = get_current_user_id();
-        $dsn = "mysql:host=localhost;dbname=projekt";
-        $dataBaseConn = new PDO($dsn, DB_USER, DB_PASSWORD);
+        $dataBaseConn = new PDO(DSN, DB_USER, DB_PASSWORD);
 
         /*Loading all expenses names from current user*/
         $expensesNamesArr = Expenses::loadAllExpensesNames($dataBaseConn, $userId);
@@ -37,7 +36,7 @@ get_header(); ?>
     <div>
         <label for="expense_date">Data wydatku:</label>
         <input type="date" id="expense_date" name="user_expense_date">
-        <!--Need hidden to operate with admin-post.php-->
+        <!--Need type='hidden' to operate with admin-post.php-->
         <input type="hidden" name="action" value="add_expenses">
     </div>
     <div class="button">
@@ -47,7 +46,7 @@ get_header(); ?>
 
 <!--Throwing error messages after form validation process begins-->
 <?php
-$fullUrl = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+$fullUrl = $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
 if (strpos($fullUrl, 'expense=all_empty')) {
     echo '<p>' . 'Nie uzupełniłeś(aś) żadnego pola!' . '</p>';
