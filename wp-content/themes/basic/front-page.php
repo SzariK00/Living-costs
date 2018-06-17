@@ -20,7 +20,7 @@ get_header(); ?>
     <?php endif; ?>
 <?php else: ?>
     <h1>Aby korzystać z aplikacji musisz się zarejestrować.</h1>
-    <?php wp_register(); ?>
+    <a href="<?php echo wp_registration_url(); ?>">Zarejestruj się!</a>
     <?php wp_login_form(); ?>
 <?php endif; ?>
 
