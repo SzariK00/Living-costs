@@ -144,10 +144,10 @@ class Expenses
     }
 
     /*Deleting expenses from db*/
-    public static function deleteExpenseFromExpensesById(PDO $conn, $expenseId)
+    public static function deleteExpenseFromExpensesById(PDO $conn, $expenseId, $userId)
     {
-        $stmt = $conn->prepare('DELETE FROM expenses WHERE id=:id');
-        $result = $stmt->execute(['id' => $expenseId]);
+        $stmt = $conn->prepare('DELETE FROM expenses WHERE user_id = :userId AND ID = :id');
+        $result = $stmt->execute(['userId' => $userId, 'id' => $expenseId]);
         if (!$result) {
             return false;
         }
