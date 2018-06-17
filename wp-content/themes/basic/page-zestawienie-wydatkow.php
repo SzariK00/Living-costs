@@ -74,6 +74,8 @@ $selectedExpensesArr = Expenses::loadAllExpenses($dataBaseConn, $userId, $userPr
         <?php foreach ($selectedExpensesArr as $expenseEntry) {
             $userExpenseId = $expenseEntry['ID'];
             $queries = $_SERVER['QUERY_STRING'];
+            $expenseValueType = floatval($expenseEntry['expense_value']);
+            $sumOfExpenses += $expenseValueType;
 
             /*Important! Need to prevent from duplicated URL query parameters*/
             if (isset($_GET['expense'])) {
@@ -92,8 +94,10 @@ $selectedExpensesArr = Expenses::loadAllExpenses($dataBaseConn, $userId, $userPr
             echo '<td>' . $expenseEntry['expense_value'] . '</td>';
             echo '<td>' . $expenseEntry['expense_date'] . '</td>';
             echo '<td>' . "<a href=" . $link . ">Usuń</a>" . '</td>';
-            echo '</tr>';
         }
+        echo '<tr>' ;
+        echo '<td colspan="5">' . "Suma wydatków: " . $sumOfExpenses . '</td>';
+        echo '</tr>';
 
         /*Delete expenses form starts here*/
         if ($_GET['expense']) : ?>
