@@ -156,6 +156,7 @@ class Expenses
 
     /**
      * @param mixed $userId
+     * @return $this
      */
     public function setUserId($userId)
     {
@@ -165,6 +166,7 @@ class Expenses
 
     /**
      * @param mixed $userName
+     * @return $this
      */
     public function setUserName($userName)
     {
@@ -174,6 +176,7 @@ class Expenses
 
     /**
      * @param mixed $expenseType
+     * @return $this
      */
     public function setExpenseType($expenseType)
     {
@@ -183,6 +186,7 @@ class Expenses
 
     /**
      * @param mixed $expenseValue
+     * @return $this
      */
     public function setExpenseValue($expenseValue)
     {
@@ -192,6 +196,7 @@ class Expenses
 
     /**
      * @param mixed $expenseDate
+     * @return $this
      */
     public function setExpenseDate($expenseDate)
     {
