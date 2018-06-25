@@ -10,7 +10,7 @@
 5. Application will summarize your expenses, helping you to indicate expenses types which should be changed in future,
 6. At the end dashboard will help you embrace costs of everyday life.
 
-### Current technologies behind:
+### Technologies behind:
 Project is powered by WordPress. WP is mainly used for user registration process. No default themes or WP plugins are used in this project.
 
 - PHP OOP is based on simplified Active Directory pattern.
