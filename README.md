@@ -13,10 +13,11 @@
 ### Current technologies behind:
 Project is powered by WordPress. WP is mainly used for user registration process. No default themes or WP plugins are used in this project.
 
-PHP OOP is based on simplified Active Directory pattern.
-CanvasJS framework is used for dashboard purposes.
+- PHP OOP is based on simplified Active Directory pattern.
+- CanvasJS framework is used for dashboard purposes.
 
-You can search for code samples in: wp-content/themes/Basic
+
+You can search for code samples in wp-content/themes/Basic:
 - Class directory - simple CRUD,
 - functions.php file - operations on forms,
 - page-formularz-wydatkow.php file - we add expenses here,
