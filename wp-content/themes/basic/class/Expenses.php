@@ -108,7 +108,8 @@ class Expenses
             $stmt = $conn->prepare("SELECT * FROM expenses WHERE 
                                       user_id = :userId AND 
                                       expense_value BETWEEN :valueMin AND :valueMax AND 
-                                      expense_date BETWEEN :startDate AND :endDate");
+                                      expense_date BETWEEN :startDate AND :endDate
+                                      ORDER BY expense_date");
             $stmt->execute
             ([
                 'userId' => $userId,
@@ -126,7 +127,8 @@ class Expenses
                                       expense_type = :expenseName AND 
                                       user_id = :userId AND 
                                       expense_value BETWEEN :valueMin AND :valueMax AND 
-                                      expense_date BETWEEN :startDate AND :endDate");
+                                      expense_date BETWEEN :startDate AND :endDate
+                                      ORDER BY expense_date");
             $stmt->execute
             ([
                 'expenseName' => $expenseName,
@@ -138,13 +140,12 @@ class Expenses
             ]);
 
             $result = $stmt->fetchAll();
-
         }
         return $result;
     }
 
     /*Deleting expenses from db*/
-    public static function deleteExpenseFromExpensesById(PDO $conn, $expenseId, $userId)
+    public static function deleteExpense(PDO $conn, $expenseId, $userId)
     {
         $stmt = $conn->prepare('DELETE FROM expenses WHERE user_id = :userId AND ID = :id');
         $result = $stmt->execute(['userId' => $userId, 'id' => $expenseId]);
@@ -152,6 +153,126 @@ class Expenses
             return false;
         }
         return true;
+    }
+
+    /*Retrieving expenses from db by year (Column chart)*/
+    public static function retrieveByYear(PDO $conn, $userId, $expenseName)
+    {
+        if (!empty($expenseName)) {
+            $stmt = $conn->prepare("SELECT YEAR(expense_date), SUM(expense_value) 
+                FROM expenses 
+                WHERE user_id = :userId 
+                AND expense_type = :expenseName 
+                GROUP BY YEAR(expense_date) ASC");
+            $stmt->execute(['userId' => $userId, 'expenseName' => $expenseName]);
+            $result = $stmt->fetchAll();
+
+            $arr = [];
+
+            foreach ($result as $key) {
+                $newArr =
+                    [
+                        "label" => $key['YEAR(expense_date)'],
+                        "y" => $key['SUM(expense_value)']
+                    ];
+                $arr[] = $newArr;
+            }
+
+            return $arr;
+
+        } else {
+
+            $stmt = $conn->prepare("SELECT YEAR(expense_date), SUM(expense_value) 
+                FROM expenses 
+                WHERE user_id = :userId 
+                GROUP BY YEAR(expense_date) ASC");
+            $stmt->execute(['userId' => $userId]);
+            $result = $stmt->fetchAll();
+
+            $arr = [];
+
+            foreach ($result as $key) {
+                $newArr =
+                    [
+                        "label" => $key['YEAR(expense_date)'],
+                        "y" => $key['SUM(expense_value)']
+                    ];
+                $arr[] = $newArr;
+            }
+            return $arr;
+        }
+    }
+
+    /*Retrieving expenses from db by month (Point chart)*/
+    public static function retrieveByMonth(PDO $conn, $userId, $expenseName)
+    {
+        if (!empty($expenseName)) {
+            $stmt = $conn->prepare("SELECT YEAR(expense_date), MONTH(expense_date), SUM(expense_value) 
+                FROM expenses 
+                WHERE user_id = :userId
+                AND expense_type = :expenseName 
+                GROUP BY YEAR(expense_date), MONTH(expense_date) ASC");
+            $stmt->execute(['userId' => $userId, 'expenseName' => $expenseName]);
+            $result = $stmt->fetchAll();
+
+            $arr = [];
+
+            foreach ($result as $key) {
+                $newArr =
+                    [
+                        "label" => $key['MONTH(expense_date)'] . "_" . $key['YEAR(expense_date)'],
+                        "y" => $key['SUM(expense_value)']
+                    ];
+                $arr[] = $newArr;
+            }
+
+            return $arr;
+
+        } else {
+
+            $stmt = $conn->prepare("SELECT YEAR(expense_date), MONTH(expense_date), SUM(expense_value) 
+                FROM expenses 
+                WHERE user_id = :userId
+                GROUP BY YEAR(expense_date), MONTH(expense_date) ASC");
+            $stmt->execute(['userId' => $userId]);
+            $result = $stmt->fetchAll();
+
+            $arr = [];
+
+            foreach ($result as $key) {
+                $newArr =
+                    [
+                        "label" => $key['MONTH(expense_date)'] . "_" . $key['YEAR(expense_date)'],
+                        "y" => $key['SUM(expense_value)']
+                    ];
+                $arr[] = $newArr;
+            }
+            return $arr;
+        }
+    }
+
+    /*Selecting expenses from array (Pie Chart)*/
+    public static function retrieveShares($arr)
+    {
+        $expenseTypes = [];
+        $resultArr = [];
+
+        /*Creating associative array with unique keys and values*/
+        foreach ($arr as $expenseEntry) {
+            $expenseType = $expenseEntry['expense_type'];
+            $expenseTypes[$expenseType] += $expenseEntry['expense_value'];
+        }
+
+        /*Creating 2D array with expenses names and their values*/
+        foreach ($expenseTypes as $expenseType => $sum) {
+            $arrHelper =
+                [
+                    'label' => $expenseType,
+                    'y' => $sum
+                ];
+            $resultArr[] = $arrHelper;
+        }
+        return $resultArr;
     }
 
     /**
