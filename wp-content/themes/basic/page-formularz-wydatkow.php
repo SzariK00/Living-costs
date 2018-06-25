@@ -31,7 +31,7 @@ get_header(); ?>
     </div>
     <div>
         <label for="expense_value">Wartość wydatku:</label>
-        <input type="number" step="0.01" id="expense_value" name="user_expense_value">
+        <input type="number" pattern="[0-9]+([\,|\.][0-9]+)?" step="0.01" id="expense_value" name="user_expense_value">
     </div>
     <div>
         <label for="expense_date">Data wydatku:</label>
