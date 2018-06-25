@@ -8,12 +8,13 @@
 3. Of course you will be able to add expenses on everyday basis,
 4. Your expenses will be stored in a application database,
 5. Application will summarize your expenses, helping you to indicate expenses types which should be changed in future,
-6. Chart based dashboard will help you embrace costs of everyday life.
+6. At the end dashboard will help you embrace costs of everyday life.
 
 ### Current technologies behind:
-Project is powered by WordPress. WP is mainly used for user registration process. No default themes, plugins or any other external code injections are used in this project.
+Project is powered by WordPress. WP is mainly used for user registration process. No default themes or WP plugins are used in this project.
 
 PHP OOP is based on simplified Active Directory pattern.
+CanvasJS framework is used for dashboard purposes.
 
 You can search for code samples in: wp-content/themes/Basic
 - Class directory - simple CRUD,
@@ -24,7 +25,5 @@ You can search for code samples in: wp-content/themes/Basic
 
 ### Technologies to be used ASAP:
 CSS based on SASS + GULP - fully styled Basic theme (wp-content/themes/Basic),
-
-CanvasJS for dashboard creation.
 
 
