@@ -20,7 +20,6 @@ get_header(); ?>
 
             /*Loading all expenses names from a current user*/
             $expensesNamesArr = Expenses::loadAllExpensesNames($dataBaseConn, $userId);
-
             foreach ($expensesNamesArr as $key => $expenseName) {
                 echo "<option>$expenseName</option>";
             }
@@ -41,6 +40,7 @@ get_header(); ?>
         <div>
             <label for="expense_date_end">Końcowa data wydatku:</label>
             <input type="date" id="expense_date_end" name="user_expense_date_end">
+
             <!--Need type='hidden' to operate with admin-post.php-->
             <input type="hidden" name="action" value="show_filtered_expenses">
             <input type="hidden" name="expense">
@@ -57,10 +57,10 @@ $userExpenseValueMin = $_GET['user_expense_value_min'];
 $userExpenseValueMax = $_GET['user_expense_value_max'];
 $userExpenseStartDate = $_GET['user_expense_date_start'];
 $userExpenseEndDate = $_GET['user_expense_date_end'];
-
 $linkToExpensesListPage = get_permalink(get_page_by_title('zestawienie wydatkow'));
 $selectedExpensesArr = Expenses::loadAllExpenses($dataBaseConn, $userId, $userPreviousExpense, $userExpenseValueMin, $userExpenseValueMax, $userExpenseStartDate, $userExpenseEndDate);
 ?>
+
     <!--Printing table with expenses-->
     <table>
         <tr>
@@ -87,6 +87,7 @@ $selectedExpensesArr = Expenses::loadAllExpenses($dataBaseConn, $userId, $userPr
                 $link = '?expense=' . $userExpenseId;
             }
 
+            /*Drawing table with expenses*/
             echo '<tr>';
             echo '<td>' . $expenseEntry['ID'] . '</td>';
             echo '<td>' . $expenseEntry['user_name'] . '</td>';
@@ -95,7 +96,7 @@ $selectedExpensesArr = Expenses::loadAllExpenses($dataBaseConn, $userId, $userPr
             echo '<td>' . $expenseEntry['expense_date'] . '</td>';
             echo '<td>' . "<a href=" . $link . ">Usuń</a>" . '</td>';
         }
-        echo '<tr>' ;
+        echo '<tr>';
         echo '<td colspan="5">' . "Suma wydatków: " . $sumOfExpenses . '</td>';
         echo '</tr>';
 
@@ -118,5 +119,108 @@ $selectedExpensesArr = Expenses::loadAllExpenses($dataBaseConn, $userId, $userPr
             </form>
         <?php endif; ?>
     </table>
+
+<?php
+$expensesPerYear = Expenses::retrieveByYear($dataBaseConn, $userId, $userPreviousExpense);
+$expensesPerMonth = Expenses::retrieveByMonth($dataBaseConn, $userId, $userPreviousExpense);
+$expensesShares = Expenses::retrieveShares($selectedExpensesArr);
+?>
+
+    <div id="expensesSharesChart" style="height: 370px; width: 100%;"></div>
+    <div id="expensesPerMontChart" style="height: 370px; width: 100%;"></div>
+    <div id="expensesPerYearChart" style="height: 370px; width: 100%;"></div>
+
+    <script>
+        window.onload = function () {
+
+            let chart2 = new CanvasJS.Chart("expensesPerYearChart", {
+                animationEnabled: true,
+                exportEnabled: true,
+                theme: "light5",
+                title: {
+                    text: "Skumulowane wartości wybranych typów wydatków w latach."
+                },
+                legend: {
+                    cursor: "pointer",
+                    verticalAlign: "center",
+                    horizontalAlign: "right",
+                    itemclick: toggleDataSeries
+                },
+                data: [{
+                    type: "column",
+                    name: "",
+                    indexLabel: "{y}",
+                    yValueFormatString: "#,##0 zł",
+                    showInLegend: false,
+                    dataPoints: <?php echo json_encode($expensesPerYear, JSON_NUMERIC_CHECK); ?>
+                }]
+            });
+            chart2.render();
+
+            function toggleDataSeries(e) {
+                if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+                    e.dataSeries.visible = false;
+                }
+                else {
+                    e.dataSeries.visible = true;
+                }
+                chart2.render();
+            }
+
+            let chart = new CanvasJS.Chart("expensesSharesChart", {
+                animationEnabled: true,
+                exportEnabled: true,
+                title: {
+                    text: "Udział wartościowy typów wydatków w wybranym czasie."
+                },
+                subtitles: [{
+                    text: "Wartość w zł"
+                }],
+                data: [{
+                    type: "pie",
+                    showInLegend: false,
+                    legendText: "{label}",
+                    indexLabelFontSize: 16,
+                    indexLabel: "{label} - #percent%",
+                    yValueFormatString: "#,##0 zł",
+                    dataPoints: <?php echo json_encode($expensesShares, JSON_NUMERIC_CHECK); ?>
+                }]
+            });
+            chart.render();
+
+            let chart3 = new CanvasJS.Chart("expensesPerMontChart", {
+                animationEnabled: true,
+                exportEnabled: true,
+                theme: "light1",
+                title: {
+                    text: "Skumulowane wartości wybranych typów wydatków w miesiącach."
+                },
+                axisX: {
+                    crosshair: {
+                        enabled: true,
+                        snapToDataPoint: true
+                    }
+                },
+                axisY: {
+                    title: "Wartość w zł",
+                    crosshair: {
+                        enabled: true,
+                        snapToDataPoint: true
+                    }
+                },
+                toolTip: {
+                    enabled: true
+                },
+                data: [{
+                    type: "area",
+                    yValueFormatString: "#,##0 zł",
+                    dataPoints: <?php echo json_encode($expensesPerMonth, JSON_NUMERIC_CHECK); ?>
+                }]
+            });
+            chart3.render();
+
+
+        };
+    </script>
 
 <?php get_footer() ?>
