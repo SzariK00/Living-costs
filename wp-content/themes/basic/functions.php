@@ -32,7 +32,7 @@ function add_expenses_to_db()
     global $dataBaseConn;
     global $currentUserId;
 
-    /*Loading data from form*/
+    /*Loading data from form_expenses page*/
     if (isset($_POST['submit'])) {
         $currentUser = wp_get_current_user();
         $currentUserName = $currentUser->user_login;
@@ -81,16 +81,30 @@ function delete_expenses_from_db()
 {
     $linkToExpensesListPage = get_permalink(get_page_by_title('zestawienie wydatkow'));
     if (isset($_POST['no'])) {
-        /*Redirecting to expenses list page*/
+
+        /*Redirecting to expenses list page with previous filters still set*/
         $noButtonValue = $_POST['no'];
         header("Location: $linkToExpensesListPage . $noButtonValue");
     } elseif (isset($_POST['yes'])) {
         global $dataBaseConn;
         global $currentUserId;
         $expenseToDelById = $_POST['expense_id_to_delete_from_url'];
-        Expenses::deleteExpenseFromExpensesById($dataBaseConn, $expenseToDelById, $currentUserId);
+        Expenses::deleteExpense($dataBaseConn, $expenseToDelById, $currentUserId);
+
         /*Redirecting to expenses list page*/
         $yesButtonValue = $_POST['yes'];
         header("Location: $linkToExpensesListPage . $yesButtonValue");
+    }
+}
+
+add_action('admin_init', 'disable_dashboard');
+
+function disable_dashboard() {
+    if (!is_user_logged_in()) {
+        return null;
+    }
+    if (!current_user_can('administrator') && is_admin()) {
+        wp_redirect(home_url());
+        exit;
     }
 }
