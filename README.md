@@ -17,7 +17,7 @@ Project is powered by WordPress. WP is mainly used for user registration process
 - CanvasJS framework is used for dashboard purposes.
 
 
-You can search for code samples in wp-content/themes/Basic:
+You can search for code samples in wp-content/themes/basic:
 - Class directory - simple CRUD,
 - functions.php file - operations on forms,
 - page-formularz-wydatkow.php file - we add expenses here,
@@ -25,6 +25,6 @@ You can search for code samples in wp-content/themes/Basic:
 
 
 ### Technologies to be used ASAP:
-CSS based on SASS + GULP - fully styled Basic theme (wp-content/themes/Basic),
+CSS based on SASS + GULP - fully styled Basic theme (wp-content/themes/Basic).
 
 
