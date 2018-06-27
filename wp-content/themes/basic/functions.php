@@ -5,15 +5,20 @@
  * Time: 20:21
  */
 
-/*What is needed*/
-function basic_enqueue_style()
+/*Needed dependencies*/
+function basic_dependencies()
 {
-    wp_enqueue_style('main', get_template_directory_uri() . '/css/main.css');
-    wp_enqueue_script('canvasjs', get_template_directory_uri() . '/js/canvasjs.min.js', null, null, true);
+    /*Scripts*/
+    wp_enqueue_script('popper', 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js', ['jquery']);
+    wp_enqueue_script('bootstrap', 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js', ['jquery', 'popper']);
+    wp_enqueue_script('canvasjs', get_template_directory_uri() . '/js/canvasjs.min.js');
+
+    /*Styles*/
+    wp_enqueue_style('bootstrap', 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css');
+    wp_enqueue_style('main', get_template_directory_uri() . '/css/main.css', ['bootstrap']);
 }
 
-add_action('wp_enqueue_scripts', 'basic_enqueue_style');
-
+add_action('wp_enqueue_scripts', 'basic_dependencies');
 
 require 'class/Expenses.php';
 const DSN = 'mysql:host=localhost;dbname=projekt';
@@ -94,17 +99,5 @@ function delete_expenses_from_db()
         /*Redirecting to expenses list page*/
         $yesButtonValue = $_POST['yes'];
         header("Location: $linkToExpensesListPage . $yesButtonValue");
-    }
-}
-
-add_action('admin_init', 'disable_dashboard');
-
-function disable_dashboard() {
-    if (!is_user_logged_in()) {
-        return null;
-    }
-    if (!current_user_can('administrator') && is_admin()) {
-        wp_redirect(home_url());
-        exit;
     }
 }
