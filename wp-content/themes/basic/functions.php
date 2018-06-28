@@ -11,7 +11,8 @@ function basic_dependencies()
     /*Scripts*/
     wp_enqueue_script('popper', 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js', ['jquery']);
     wp_enqueue_script('bootstrap', 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js', ['jquery', 'popper']);
-    wp_enqueue_script('canvasjs', get_template_directory_uri() . '/js/canvasjs.min.js');
+    wp_enqueue_script('canvasjs', get_template_directory_uri() . '/js/canvasjs.min.js', ['jquery', 'bootstrap']);
+    wp_enqueue_script('main', get_template_directory_uri() . '/js/app.js', ['jquery', 'bootstrap', 'canvasjs']);
 
     /*Styles*/
     wp_enqueue_style('bootstrap', 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css');
@@ -53,7 +54,7 @@ function add_expenses_to_db()
             header("Location: $linkToExpensesForm" . "?expense=expense_name_empty");
         } elseif (!preg_match("/^[a-zA-Z0-9-ĄąŻżŹźĆćĘęÓóŁłŃńŚś ]*$/", $userNewExpense)) {
             header("Location: $linkToExpensesForm" . "?expense=wrong_expense_name");
-        } elseif (strlen($userNewExpense) > 20) {
+        } elseif (strlen($userNewExpense) > 25) {
             header("Location: $linkToExpensesForm" . "?expense=to_long_expense_name");
         } elseif (empty($userExpenseValue)) {
             header("Location: $linkToExpensesForm" . "?expense=expense_value_empty");
