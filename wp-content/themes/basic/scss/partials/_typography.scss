@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Zilla+Slab+Highlight:400,700&subset=latin-ext');
+
+.header {
+  &__logo {
+    font-family: 'Zilla Slab Highlight', cursive;;
+    font-size: 100px;
+    text-align: center;
+  }
+  &__intro {
+    text-align: center;
+  }
+}
