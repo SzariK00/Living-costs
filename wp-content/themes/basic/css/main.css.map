@@ -1,1 +1,1 @@
-{"version":3,"sources":[],"names":[],"mappings":"","file":"main.css","sourcesContent":[]}
+{"version":3,"sources":["partials/_typography.scss"],"names":[],"mappings":"AAAA,qGAGE,cACE,4CACA,gBACA,iBAAkB,CACnB,eAEC,iBAAkB,CACnB","file":"main.css","sourcesContent":["@import url('https://fonts.googleapis.com/css?family=Zilla+Slab+Highlight:400,700&subset=latin-ext');\n\n.header {\n  &__logo {\n    font-family: 'Zilla Slab Highlight', cursive;;\n    font-size: 100px;\n    text-align: center;\n  }\n  &__intro {\n    text-align: center;\n  }\n}"]}
