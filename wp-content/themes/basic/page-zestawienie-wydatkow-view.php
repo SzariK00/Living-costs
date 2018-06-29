@@ -27,11 +27,13 @@ get_header(); ?>
         </select>
         <div>
             <label for="expense_value_min">Minimalna wartość wydatku:</label>
-            <input type="number" pattern="[0-9]+([\,|\.][0-9]+)?" step="0.01" id="expense_value_min" name="user_expense_value_min">
+            <input type="number" pattern="[0-9]+([\,|\.][0-9]+)?" step="0.01" id="expense_value_min"
+                   name="user_expense_value_min">
         </div>
         <div>
             <label for="expense_value_max">Maksymalna wartość wydatku:</label>
-            <input type="number" pattern="[0-9]+([\,|\.][0-9]+)?" step="0.01" id="expense_value_max" name="user_expense_value_max">
+            <input type="number" pattern="[0-9]+([\,|\.][0-9]+)?" step="0.01" id="expense_value_max"
+                   name="user_expense_value_max">
         </div>
         <div>
             <label for="expense_date_start">Początkowa data wydatku:</label>
