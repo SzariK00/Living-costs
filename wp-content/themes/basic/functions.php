@@ -12,7 +12,7 @@ function basic_dependencies()
     wp_enqueue_script('popper', 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js', ['jquery']);
     wp_enqueue_script('bootstrap', 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js', ['jquery', 'popper']);
     wp_enqueue_script('canvasjs', get_template_directory_uri() . '/js/canvasjs.min.js', ['jquery', 'bootstrap']);
-    wp_enqueue_script('main', get_template_directory_uri() . '/js/app.js', ['jquery', 'bootstrap', 'canvasjs']);
+    wp_enqueue_script('main', get_template_directory_uri() . '/js/app.js', ['jquery', 'popper', 'bootstrap', 'canvasjs'], null, true);
 
     /*Styles*/
     wp_enqueue_style('bootstrap', 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css');
@@ -27,7 +27,7 @@ const DSN = 'mysql:host=localhost;dbname=projekt';
 /*Setting connection to database*/
 $dataBaseConn = new PDO(DSN, DB_USER, DB_PASSWORD);
 
-/*Processing add expenses form*/
+/*Processing adding expenses*/
 add_action('admin_post_add_expenses', 'add_expenses_to_db');
 
 /*Getting user main data*/
@@ -80,7 +80,7 @@ function add_expenses_to_db()
     }
 }
 
-/*Processing delete expenses form*/
+/*Processing deletion of expenses*/
 add_action('admin_post_delete_expenses', 'delete_expenses_from_db');
 
 function delete_expenses_from_db()
@@ -88,7 +88,7 @@ function delete_expenses_from_db()
     $linkToExpensesListPage = get_permalink(get_page_by_title('zestawienie wydatkow'));
     if (isset($_POST['no'])) {
 
-        /*Redirecting to expenses list page with previous filters still set*/
+        /*Redirecting to expenses list page with previous html parameters*/
         $noButtonValue = $_POST['no'];
         header("Location: $linkToExpensesListPage . $noButtonValue");
     } elseif (isset($_POST['yes'])) {
