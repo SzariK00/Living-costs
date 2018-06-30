@@ -7,82 +7,91 @@
     </div>
     <!--Filtering form starts here-->
     <div class="row justify-content-around">
-        <div class="col-6">
+        <div class="col-5">
             <form method="get">
                 <h3>Przefiltruj wydatki:</h3>
-                <label for="previous_expenses">Rodzaj wydatku:</label>
-                <select id="previous_expenses" name="user_previous_expenses">
-                    <option value="" selected></option>
-                    <?php
-                    foreach ($expensesNamesArr as $key => $expenseName) {
-                        echo "<option>$expenseName</option>";
-                    }
-                    ?>
-                </select>
-                <div>
+                <div class="form-group">
+                    <label for="previous_expenses">Rodzaj wydatku:</label>
+                    <select class="form-control" id="previous_expenses" name="user_previous_expenses">
+                        <option value="" selected></option>
+                        <?php
+                        foreach ($expensesNamesArr as $key => $expenseName) {
+                            echo "<option>$expenseName</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="expense_value_min">Minimalna wartość wydatku:</label>
-                    <input type="number" pattern="[0-9]+([\,|\.][0-9]+)?" step="0.01" id="expense_value_min"
-                           name="user_expense_value_min">
+                    <input class="form-control" type="number" pattern="[0-9]+([\,|\.][0-9]+)?" step="0.01"
+                           id="expense_value_min"
+                           name="user_expense_value_min"
+                           placeholder="np. 34,45">
                 </div>
-                <div>
+                <div class="form-group">
                     <label for="expense_value_max">Maksymalna wartość wydatku:</label>
-                    <input type="number" pattern="[0-9]+([\,|\.][0-9]+)?" step="0.01" id="expense_value_max"
-                           name="user_expense_value_max">
+                    <input class="form-control" type="number" pattern="[0-9]+([\,|\.][0-9]+)?" step="0.01"
+                           id="expense_value_max"
+                           name="user_expense_value_max"
+                           placeholder="np. 55,25">
                 </div>
-                <div>
-                    <label for="expense_date_start">Początkowa data wydatku:</label>
-                    <input type="date" id="expense_date_start" name="user_expense_date_start">
+                <div class="form-group">
+                    <label for="expense_date_start">Początkowa data wydatku (od):</label>
+                    <input class="form-control" type="date" id="expense_date_start" name="user_expense_date_start">
                 </div>
-                <div>
-                    <label for="expense_date_end">Końcowa data wydatku:</label>
-                    <input type="date" id="expense_date_end" name="user_expense_date_end">
+                <div class="form-group">
+                    <label for="expense_date_end">Końcowa data wydatku (do):</label>
+                    <input class="form-control" type="date" id="expense_date_end" name="user_expense_date_end">
 
                     <!--Need type='hidden' to operate with admin-post.php-->
                     <input type="hidden" name="action" value="show_filtered_expenses">
                     <input type="hidden" name="expense">
                 </div>
-                <div class="button">
-                    <button type="submit">Przefiltruj swoje wydatki</button>
+                <div class="button form-group">
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">Przefiltruj swoje wydatki</button>
                 </div>
+                <a href="<?php echo $linkToExpensesForm; ?>" class="btn btn-secondary btn-lg btn-block" role="button"
+                   aria-pressed="true">Wróć do dodawania wydatków</a>
             </form>
             <!--Printing table with expenses-->
+            <br/>
+            <h4>Przefiltrowane wydatki:</h4>
+            <?php if ($isExpenseSet) : ?>
+                <div class="alert alert-warning" role="alert">
+                    Czy jesteś pewnien(a), że chcesz usunąć wydatek o ID: <?php echo $isExpenseSet; ?> z bazy
+                    danych?
+                </div>
+                <form class="to-delete" action="<?php echo $adminUrl; ?>" method="post">
+                    <input type="hidden" name="expense_id_to_delete_from_url" value="<?php echo $isExpenseSet; ?>">
+                    <button class="to-delete__yes btn btn-block btn-outline-success" type="submit" name="yes"
+                            value="<?php echo $linkHelperForDeletingExpenseProcess; ?>">Tak
+                    </button>
+                    <button class="to-delete__no btn btn-block btn-outline-danger" type="submit" name="no"
+                            value="<?php echo $linkHelperForDeletingExpenseProcess; ?>">Nie
+                    </button>
+                    <!--Need type='hidden' to operate with admin-post.php-->
+                    <input type="hidden" name="action" value="delete_expenses">
+                </form>
+            <?php endif; ?>
             <table class="table">
                 <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">ID wydatku</th>
-                        <th scope="col">Nazwa użytkownika</th>
-                        <th scope="col">Typ wydatku</th>
-                        <th scope="col">Wartość wydatku</th>
-                        <th scope="col">Data wydatku</th>
-                    </tr>
+                <tr>
+                    <th scope="col">ID wydatku</th>
+                    <th scope="col">Nazwa użytkownika</th>
+                    <th scope="col">Typ wydatku</th>
+                    <th scope="col">Wartość wydatku</th>
+                    <th scope="col">Data wydatku</th>
+                </tr>
                 </thead>
                 <?php expensesLoop($selectedExpensesArr) ?>
                 <!--Delete expenses starts here-->
-                <?php if ($isExpenseSet) : ?>
-                    <p> Czy jesteś pewnien(a), że chcesz usunąć wydatek o ID: <?php echo $isExpenseSet; ?> z bazy
-                        danych? </p>
-                    <form action="<?php echo admin_url('admin-post.php'); ?>" method="post">
-                        <input type="hidden" name="expense_id_to_delete_from_url" value="<?php echo $isExpenseSet; ?>">
-                        <div class="button">
-                            <button type="submit" name="yes"
-                                    value="<?php echo $linkHelperForDeletingExpenseProcess; ?>">Tak
-                            </button>
-                        </div>
-                        <div class="button">
-                            <button type="submit" name="no" value="<?php echo $linkHelperForDeletingExpenseProcess; ?>">
-                                Nie
-                            </button>
-                        </div>
-                        <!--Need type='hidden' to operate with admin-post.php-->
-                        <input type="hidden" name="action" value="delete_expenses">
-                    </form>
-                <?php endif; ?>
             </table>
         </div>
+        <!--Printing charts-->
         <div class="col-6">
-            <div id="expensesSharesChart" style="height: 370px; width: 100%; margin-bottom: 20px; border: 1px dotted black"></div>
-            <div id="expensesPerMontChart" style="height: 370px; width: 100%; margin-bottom: 20px; border: 1px dotted black"></div>
-            <div id="expensesPerYearChart" style="height: 370px; width: 100%; margin-bottom: 20px; border: 1px dotted black"></div>
+            <div id="expensesSharesChart"></div>
+            <div id="expensesPerMontChart"></div>
+            <div id="expensesPerYearChart"></div>
         </div>
     </div>
 </div>
