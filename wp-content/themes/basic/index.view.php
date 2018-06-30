@@ -7,7 +7,7 @@
     </div>
     <div class="row">
         <div class="col">
-        <?php  wp_login_form(); ?>
+            <?php wp_login_form(); ?>
         </div>
     </div>
     <div class="row">
