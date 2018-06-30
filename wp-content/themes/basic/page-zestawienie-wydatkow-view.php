@@ -7,7 +7,7 @@
     </div>
     <!--Filtering form starts here-->
     <div class="row justify-content-around">
-        <div class="col-5">
+        <div class="col-xl-6 order-2 order-xl-1">
             <form method="get">
                 <h3>Przefiltruj wydatki:</h3>
                 <div class="form-group">
@@ -73,22 +73,24 @@
                     <input type="hidden" name="action" value="delete_expenses">
                 </form>
             <?php endif; ?>
-            <table class="table">
-                <thead class="thead-dark">
-                <tr>
-                    <th scope="col">ID wydatku</th>
-                    <th scope="col">Nazwa użytkownika</th>
-                    <th scope="col">Typ wydatku</th>
-                    <th scope="col">Wartość wydatku</th>
-                    <th scope="col">Data wydatku</th>
-                </tr>
-                </thead>
-                <?php expensesLoop($selectedExpensesArr) ?>
-                <!--Delete expenses starts here-->
-            </table>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">ID wydatku</th>
+                        <th scope="col">Nazwa użytkownika</th>
+                        <th scope="col">Typ wydatku</th>
+                        <th scope="col">Wartość wydatku</th>
+                        <th scope="col">Data wydatku</th>
+                    </tr>
+                    </thead>
+                    <?php expensesLoop($selectedExpensesArr) ?>
+                    <!--Delete expenses starts here-->
+                </table>
+            </div>
         </div>
         <!--Printing charts-->
-        <div class="col-6">
+        <div class="col-xl-6 order-1 order-xl-2">
             <div id="expensesSharesChart"></div>
             <div id="expensesPerMontChart"></div>
             <div id="expensesPerYearChart"></div>
