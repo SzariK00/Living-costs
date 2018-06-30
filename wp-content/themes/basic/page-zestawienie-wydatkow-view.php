@@ -50,7 +50,7 @@
                 <div class="button form-group">
                     <button class="btn btn-primary btn-lg btn-block" type="submit">Przefiltruj swoje wydatki</button>
                 </div>
-                <?php if ($isExpenseSet || $isUserPreviousExpenseSet || $isValueMinSet || $isValueMaxSet || $isDateStartSet || $isDateEndSet) : ?>
+                <?php if ($isUserPreviousExpenseSet || $isValueMinSet || $isValueMaxSet || $isDateStartSet || $isDateEndSet) : ?>
                     <a href="<?php echo $siteShortUrl; ?>" class="btn btn-warning btn-lg btn-block" role="button"
                        aria-pressed="true">Zresetuj filtry</a>
                 <?php endif; ?>
