@@ -109,7 +109,7 @@ class Expenses
                                       user_id = :userId AND 
                                       expense_value BETWEEN :valueMin AND :valueMax AND 
                                       expense_date BETWEEN :startDate AND :endDate
-                                      ORDER BY expense_date");
+                                      ORDER BY expense_date, id");
             $stmt->execute
             ([
                 'userId' => $userId,
@@ -128,7 +128,7 @@ class Expenses
                                       user_id = :userId AND 
                                       expense_value BETWEEN :valueMin AND :valueMax AND 
                                       expense_date BETWEEN :startDate AND :endDate
-                                      ORDER BY expense_date");
+                                      ORDER BY expense_date, id");
             $stmt->execute
             ([
                 'expenseName' => $expenseName,
