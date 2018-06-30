@@ -51,7 +51,7 @@ function validationErrors($allEmpty, $nameEmpty, $wrongName, $longName, $valueEm
             "Wprowadziłeś niepoprawną wartość wydatku. <br /> Pamiętaj, aby nie używać znaków specjalnych!" . '</p>';
     } elseif ($highValue) {
         echo '<p class="alert alert-danger" role="alert">' .
-            "Wprowadziłeś za długą wartość wydatku. <br /> Pamiętaj, aby wartość wydatku nie przekraczała 10 znaków!" . '</p>';
+            "Wprowadziłeś za długą wartość wydatku!" . '</p>';
     } elseif ($dateEmpty) {
         echo '<p class="alert alert-danger" role="alert">' .
             'Nie wprowadziłeś daty wydatku!' . '</p>';
