@@ -35,6 +35,11 @@ $position = strpos($queries, 'expense=');
 $subtract = strlen($queries) - $position;
 $linkHelperForDeletingExpenseProcess = "?" . substr($queries, 0, -$subtract);
 
+/*Variables needed for resetting form filters*/
+$siteFullUrl = $_SERVER['REQUEST_URI'];
+$parseUrl = parse_url($siteFullUrl);
+$siteShortUrl= $parseUrl['path'];
+
 /*Expenses loop function*/
 function expensesLoop($selectedExpensesArr)
 {
@@ -74,6 +79,12 @@ function expensesLoop($selectedExpensesArr)
 
 /*Variable needed for deletion process*/
 $isExpenseSet = $_GET['expense'];
+$isUserPreviousExpenseSet = $_GET['user_previous_expenses'];
+$isValueMinSet = $_GET['user_expense_value_min'];
+$isValueMaxSet = $_GET['user_expense_value_max'];
+$isDateStartSet = $_GET['user_expense_date_start'];
+$isDateEndSet = $_GET['user_expense_date_end'];
+
 $adminUrl = admin_url('admin-post.php');
 
 /*Visible layer implementation*/
