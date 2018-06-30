@@ -21,7 +21,7 @@ Project is powered by WordPress. WP is mainly used for user registration process
 - GULP is used for automation of working process.
 
 
-### You can search for code samples in [wp-content/themes/basic](/tree/master/wp-content/themes/basic). For example:
+### You can search for code samples in [wp-content/themes/basic](../master/wp-content/themes/basic). For example:
 - Class directory - there is a simple CRUD,
 - functions.php file - there are WP actions and form validations,
 - page-formularz-wydatkow.php file - we add expenses here,
