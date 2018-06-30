@@ -15,6 +15,7 @@ You can visit online version: [www.e-budzet.pl](https://www.e-budzet.pl "E-budze
 Project is powered by WordPress. WP is mainly used for user registration process. No default themes or WP plugins are used in this project.
 
 - PHP OOP is based on simplified Active Directory pattern.
+- MySQL database stores data.
 - CanvasJS framework is used for dashboard purposes.
 - Bootstrap is used for styling purposes (incl. RWD).
 - SASS is used for own styles.
@@ -27,4 +28,4 @@ Project is powered by WordPress. WP is mainly used for user registration process
 - page-formularz-wydatkow.php file - we add expenses here,
 - page-zestawienie-wydatkow.php file - we search for expenses here.
 
-Files with "-view" extension are for separation the logic code from presentation code.
+Files with "-view" extension are for separation of logic from presentation.
