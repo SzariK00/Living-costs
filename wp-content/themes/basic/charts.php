@@ -18,7 +18,7 @@
                 type: "column",
                 name: "",
                 indexLabel: "{y}",
-                yValueFormatString: "# ##0 zł",
+                yValueFormatString: "#.## zł",
                 showInLegend: false,
                 dataPoints: <?php echo json_encode($expensesPerYear, JSON_NUMERIC_CHECK); ?>
             }]
@@ -50,7 +50,7 @@
                 legendText: "{label}",
                 indexLabelFontSize: 16,
                 indexLabel: "{label} - #percent%",
-                yValueFormatString: "# ##0 zł",
+                yValueFormatString: "#.## zł",
                 dataPoints: <?php echo json_encode($expensesShares, JSON_NUMERIC_CHECK); ?>
             }]
         });
@@ -81,7 +81,7 @@
             },
             data: [{
                 type: "area",
-                yValueFormatString: "# ##0 zł",
+                yValueFormatString: "#.## zł",
                 dataPoints: <?php echo json_encode($expensesPerMonth, JSON_NUMERIC_CHECK); ?>
             }]
         });
