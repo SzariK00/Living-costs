@@ -54,13 +54,13 @@ function add_expenses_to_db()
             header("Location: $linkToExpensesForm" . "?expense=expense_name_empty");
         } elseif (!preg_match("/^[a-zA-Z0-9-ĄąŻżŹźĆćĘęÓóŁłŃńŚś ]*$/", $userNewExpense)) {
             header("Location: $linkToExpensesForm" . "?expense=wrong_expense_name");
-        } elseif (strlen($userNewExpense) > 25) {
+        } elseif (strlen($userNewExpense) > 20) {
             header("Location: $linkToExpensesForm" . "?expense=to_long_expense_name");
         } elseif (empty($userExpenseValue)) {
             header("Location: $linkToExpensesForm" . "?expense=expense_value_empty");
-        } elseif ((strpos($userExpenseValue, ',') || strpos($userExpenseValue, '.')) && strlen($userExpenseValue) > 9) {
+        } elseif (strpos($userExpenseValue, '.') && strlen($userExpenseValue) > 11) {
             header("Location: $linkToExpensesForm" . "?expense=expense_value_too_high");
-        } elseif ((!strpos($userExpenseValue, ',') || !strpos($userExpenseValue, '.')) && strlen($userExpenseValue) > 8) {
+        } elseif (!(strpos($userExpenseValue, '.')) && strlen($userExpenseValue) > 8) {
             header("Location: $linkToExpensesForm" . "?expense=expense_value_too_high");
         } elseif (!preg_match("/^[0-9-.,]*$/", $userExpenseValue)) {
             header("Location: $linkToExpensesForm" . "?expense=wrong_expense_value");
