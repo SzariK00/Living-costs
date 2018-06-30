@@ -1,7 +1,8 @@
 # Application for managing personal budget (costs of everyday life).
 >Autor: Adrian Jelonek |  E-mail: ajelonek(at)gmail.com
 
-## Project is finished.
+## Project is finished. 
+You can visit online version: [www.e-budzet.pl](https://www.e-budzet.pl "E-budzet.pl")
 ### The whole idea:
 1. First of all you have to register,
 2. Then you will be able to add your recent expense (e.g. groceries receipt) via simple form,
@@ -20,7 +21,7 @@ Project is powered by WordPress. WP is mainly used for user registration process
 - GULP is used for automation of working process.
 
 
-### You can search for code samples in wp-content/themes/basic. For example:
+### You can search for code samples in [wp-content/themes/basic](../wp-content/themes/basic). For example:
 - Class directory - there is a simple CRUD,
 - functions.php file - there are WP actions and form validations,
 - page-formularz-wydatkow.php file - we add expenses here,
