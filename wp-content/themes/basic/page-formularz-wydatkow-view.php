@@ -26,7 +26,7 @@
                     <input class="form-control" type="text" id="new_expense" name="user_new_expense"
                            aria-describedby="user_new_expense" placeholder="np. zakupy spożywcze">
                     <small id="user_new_expense" class="form-text text-muted">
-                        Nazwa wydatku nie może przekraczać 20 znaków (spacja to również znak).
+                        Nazwa wydatku nie może przekraczać 20 znaków (odstępy, tzw. "spacje", liczą się jak znaki).
                     </small>
                 </div>
                 <div class="form-group">
