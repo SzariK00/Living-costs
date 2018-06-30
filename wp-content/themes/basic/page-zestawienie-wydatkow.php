@@ -21,6 +21,7 @@ $userExpenseValueMax = $_GET['user_expense_value_max'];
 $userExpenseStartDate = $_GET['user_expense_date_start'];
 $userExpenseEndDate = $_GET['user_expense_date_end'];
 $linkToExpensesListPage = get_permalink(get_page_by_title('zestawienie wydatkow'));
+$linkToExpensesForm = get_permalink(get_page_by_title('formularz wydatkow'));
 $selectedExpensesArr = Expenses::loadAllExpenses($dataBaseConn, $userId, $userPreviousExpense, $userExpenseValueMin, $userExpenseValueMax, $userExpenseStartDate, $userExpenseEndDate);
 
 /*Charts core data*/
@@ -32,10 +33,11 @@ $expensesShares = Expenses::retrieveShares($selectedExpensesArr);
 $queries = $_SERVER['QUERY_STRING'];
 $position = strpos($queries, 'expense=');
 $subtract = strlen($queries) - $position;
-$linkHelperForDeletingExpenseProcess = "?" . substr($queries, 0, - $subtract);
+$linkHelperForDeletingExpenseProcess = "?" . substr($queries, 0, -$subtract);
 
 /*Expenses loop function*/
-function expensesLoop($selectedExpensesArr) {
+function expensesLoop($selectedExpensesArr)
+{
     global $queries;
     global $subtract;
     $sumOfExpenses = 0;
@@ -48,7 +50,7 @@ function expensesLoop($selectedExpensesArr) {
 
         /*Important! Need to prevent from duplicated URL query parameters*/
         if (isset($_GET['expense'])) {
-            $link = "?" . substr($queries, 0, - $subtract) . 'expense=' . $userExpenseId;
+            $link = "?" . substr($queries, 0, -$subtract) . 'expense=' . $userExpenseId;
         } elseif (!isset($_GET['expense'])) {
             $link = '?expense=' . $userExpenseId;
         }
@@ -65,13 +67,14 @@ function expensesLoop($selectedExpensesArr) {
         echo '</tr>';
         echo '</tbody>';
     }
-        echo '<tr>';
-        echo '<td colspan="5">' . "Suma wydatków: " . $sumOfExpenses . '</td>';
-        echo '</tr>';
+    echo '<tr>';
+    echo '<td colspan="5">' . "Suma wydatków: " . $sumOfExpenses . '</td>';
+    echo '</tr>';
 }
 
 /*Variable needed for deletion process*/
 $isExpenseSet = $_GET['expense'];
+$adminUrl = admin_url('admin-post.php');
 
 /*Visible layer implementation*/
 require 'page-zestawienie-wydatkow-view.php';
