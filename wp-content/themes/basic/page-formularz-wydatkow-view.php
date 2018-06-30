@@ -24,18 +24,18 @@
                 <div class="form-group">
                     <label for="new_expense">Nowy rodzaj wydatku:</label>
                     <input class="form-control" type="text" id="new_expense" name="user_new_expense"
-                           aria-describedby="user_new_expense">
+                           aria-describedby="user_new_expense" placeholder="np. zakupy spożywcze">
                     <small id="user_new_expense" class="form-text text-muted">
-                        Nazwa wydatku nie może przekraczać 25 znaków.
+                        Nazwa wydatku nie może przekraczać 20 znaków (spacja to również znak).
                     </small>
                 </div>
                 <div class="form-group">
                     <label for="expense_value">Wartość wydatku:</label>
                     <input class="form-control" type="number" pattern="[0-9]+([\,|\.][0-9]+)?" step="0.01"
-                           id="expense_value" name="user_expense_value" aria-describedby="user_expense_value">
+                           id="expense_value" name="user_expense_value" aria-describedby="user_expense_value"
+                           placeholder="np. 34,45">
                     <small id="user_expense_value" class="form-text text-muted">
-                        Wartość wydatku nie może przekraczać 8 znaków. Możesz wpisywać liczby z użyciem kropki lub
-                        przecinka.
+                        Maksymalnie liczba ośmiocyfrowa lub liczba ośmiocyfrowa z dwoma miejscami po przecinku.
                     </small>
                 </div>
                 <div class="form-group">
@@ -45,7 +45,7 @@
                     <input type="hidden" name="action" value="add_expenses">
                 </div class="form-group">
                 <div class="button form-group">
-                    <button class="btn btn-primary btn-lg btn-block" type="submit" name="submit">Wyślij swoje wydatki
+                    <button class="btn btn-primary btn-lg btn-block" type="submit" name="submit">Dodaj swoje wydatki
                     </button>
                 </div>
             </form>
@@ -54,12 +54,12 @@
     <div class="row">
         <div class="col">
             <!--Error messages for form validation process-->
-            <?php validationErrors($allEmpty, $nameEmpty, $wrongName, $longName, $valueEmpty, $wrongValue, $highValue, $dateEmpty) ?>
+            <?php validationErrors($allEmpty, $nameEmpty, $wrongName, $longName, $valueEmpty, $wrongValue, $highValue, $dateEmpty); ?>
         </div>
     </div>
     <div class="row">
         <div class="col">
-            <a href="<?php echo $linkToExpensesListPage ?>" class="btn btn-secondary btn-lg btn-block" role="button"
+            <a href="<?php echo $linkToExpensesListPage; ?>" class="btn btn-secondary btn-lg btn-block" role="button"
                aria-pressed="true">Przejdź do zestawienia wydatków</a>
         </div>
     </div>
