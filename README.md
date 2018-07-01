@@ -16,7 +16,7 @@ Project is powered by WordPress. WP is mainly used for user registration process
 
 - PHP OOP is based on simplified Active Directory pattern.
 - MySQL database stores data.
-- CanvasJS framework is used for dashboard purposes.
+- CanvasJS library is used for dashboard purposes.
 - Bootstrap is used for styling purposes (incl. RWD).
 - SASS is used for own styles.
 - GULP is used for automation of working process.
