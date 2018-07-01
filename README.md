@@ -4,23 +4,22 @@
 ## Project is finished. 
 You can visit online version: [www.e-budzet.pl](https://www.e-budzet.pl "E-budzet.pl")
 ### The whole idea:
-1. First of all you have to register,
-2. Then you will be able to add your recent expense (e.g. groceries receipt) via simple form,
-3. Of course you are able to add expenses on everyday basis,
-4. Your expenses are stored in a application database,
-5. Application summarizes your expenses in table, helping you to indicate expenses types which should be changed in future,
-6. Application simple dashboard helps you embrace costs of everyday life.
+1. You have to register and be logged in,
+2. You can add your recent expenses to database (e.g. groceries receipt) via simple form,
+3. You are allowed to add expenses on everyday basis,
+4. Application summarizes your expenses in table,
+4. Application's dashboard helps you embrace costs of everyday life,
+6. Your expenses are stored in database until you decide to delete account.
 
 ### Technologies behind:
-Project is powered by WordPress. WP is mainly used for user registration process. No default themes are used in this project. Only one external plugin is installed (WP MAIL SMTP) allowing WordPress to send mails.
+Project is powered by WordPress. WP is mainly used for user registration process. No default themes are used in this project. Only one external plugin is installed (WP MAIL SMTP), allowing WordPress to send mails.
 
 - PHP OOP is based on simplified Active Directory pattern.
 - MySQL database stores data.
-- CanvasJS library is used for dashboard purposes.
+- CanvasJS library is used for dashboard creation.
 - Bootstrap is used for styling purposes (incl. RWD).
 - SASS is used for own styles.
 - GULP is used for automation of working process.
-
 
 ### You can search for code samples in [wp-content/themes/basic](../master/wp-content/themes/basic). For example:
 - Class directory - there is a simple CRUD,
