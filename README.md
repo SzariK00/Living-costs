@@ -12,7 +12,7 @@ You can visit online version: [www.e-budzet.pl](https://www.e-budzet.pl "E-budze
 6. Application simple dashboard helps you embrace costs of everyday life.
 
 ### Technologies behind:
-Project is powered by WordPress. WP is mainly used for user registration process. No default themes or WP plugins are used in this project.
+Project is powered by WordPress. WP is mainly used for user registration process. No default themes are used in this project. Only one external plugin is installed (WP MAIL SMTP) allowing WordPress to send mails.
 
 - PHP OOP is based on simplified Active Directory pattern.
 - MySQL database stores data.
