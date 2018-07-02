@@ -102,9 +102,3 @@ function delete_expenses_from_db()
         header("Location: $linkToExpensesListPage . $yesButtonValue");
     }
 }
-
-function registration_redirect() {
-	return home_url( '/zestawienie-wydatkow' );
-}
-
-add_filter( 'registration_redirect', 'registration_redirect' );
