@@ -64,7 +64,8 @@ class Expenses
                 }
             }
         }
-        return $expensesArr;
+        $uniqueArr = array_unique($expensesArr, SORT_STRING);
+        return $uniqueArr;
     }
 
     /*Loading expenses from db and filtering them*/
