@@ -1,10 +1,10 @@
 # Application for managing personal budget (costs of everyday life).
->Autor: Adrian Jelonek |  E-mail: ajelonek(at)gmail.com
+>Author: Adrian Jelonek |  E-mail: ajelonek(at)gmail.com
 
-## Project is finished. 
+## Released version. 
 You can visit online version: [www.e-budzet.pl](https://www.e-budzet.pl "E-budzet.pl")
 ### The whole idea:
-1. You have to register and be logged in,
+1. You have to register and be logged in (Wordpress support),
 2. You can add your recent expenses to database (e.g. groceries receipt) via simple form,
 3. You are allowed to add expenses on everyday basis,
 4. Application summarizes your expenses in table,
@@ -21,10 +21,14 @@ Project is powered by WordPress. WP is mainly used for user registration process
 - SASS is used for own styles.
 - GULP is used for automation of working process.
 
-### You can search for code samples in [wp-content/themes/basic](../master/wp-content/themes/basic). For example:
+### You can search for my code samples in [wp-content/themes/basic](../master/wp-content/themes/basic). For example:
 - Class directory - there is a simple CRUD,
 - functions.php file - there are WP actions and form validations,
 - page-formularz-wydatkow.php file - we add expenses here,
 - page-zestawienie-wydatkow.php file - we search for expenses here.
+- Files with "-view" extension are for separation of logic from presentation.
 
-Files with "-view" extension are for separation of logic from presentation.
+### Next steps:
+- Major code refactor (DRY),
+- Use PHP OpenSLL library for expenses names,
+- Own, safe user registration interface (w/o Wordpress). 
